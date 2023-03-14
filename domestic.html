@@ -1,0 +1,119 @@
+<html class=""><!--<![endif]-->
+
+<head>
+    <meta charset="utf-8">
+    <!--[if IE]><meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'><![endif]-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+    <title>ELECTRICITY BILL CALCULATOR BY TU(ADP)</title>
+
+
+    <!-- Favicons -->
+    <link rel="icon" type="image/png" href="assets/imgs/jattaicon.png">
+
+    <!-- CSS -->
+    <link rel="stylesheet" type="text/css" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="assets/js/source/jquery.fancybox.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/owl.carousel.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/owl.theme.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/owl.transitions.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/screen.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/addon.css">
+
+
+</head>
+
+<body class="CalculatorPG BillCalculatorPG">
+
+    <div class="app page-bill-calculator">
+
+        <!--CONTENT START-->
+
+        <section class="Content_Sec pb-4" id="BackHere">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-10 col-md-offset-1">
+                        <div class="BillCalculator_Inner">
+                            <div class="Masthead">
+                                <div class="Content mb-20">
+                                    <h1 class="WhiteTxt mb-20 text-uppercase">ELECTRICITY BILL CALCULATOR BY TU(ADP)
+                                    </h1>
+                                    <h4>CONSUMER CATEGORY:</h4>
+                                </div>
+                                <ul class="BillCalculator_Tabs">
+                                    <li class="Active">
+                                        <a href="domestic.html">
+                                            <span>Domestic</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="commercial.html">
+                                            <span>Commercial</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="industrial.html">
+                                            <span>Industrial</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <div class="InputBox">
+
+                                <div class="Box" id="consumption-container">
+                                    <div class="row align-items-center">
+                                        <div class="col-md-7 mb-10 mt-md-20">
+                                            <span class="TitleTxt">Total Consumption (kWh)</span>
+                                        </div>
+                                        <div class="col-md-5">
+                                            <div class="form-group mb-0">
+                                                <input id="consumption" name="kwh" type="text" value="Please fill"
+                                                    onfocus="if (this.value == 'Please fill') (this.value='');"
+                                                    onblur="if (this.value == '') (this.value='Please fill');"
+                                                    class="form-control form-control-lg mb-3" placeholder="Please fill">
+                                                <p id="cons_error" style="color: #ff0000; display: none;">Please fill
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="ActionBox">
+                                <div class="row">
+                                    <div class="col-md-4 col-md-offset-8">
+                                        <a href="#" class="btn btn-block btn-orange btn-calc-bill btn-radius-none"
+                                            id="cal_btn">CALCULATE BILL</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="modal fade tnb_modal modal-fullscreen" id="Coalpricetrend_modal" tabindex="-1" role="dialog"
+            aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <img src="assets/imgs/price-factor/Historical_Coal_Price_RP1_RP2.jpg"
+                            class="img-responsive mx-auto d-block" style="margin: 0 auto;">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+
+</html>
