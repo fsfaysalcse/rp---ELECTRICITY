@@ -36,6 +36,11 @@
                     <div class="col-md-10 col-md-offset-1">
                         <div class="BillCalculator_Inner">
                             <div class="Masthead">
+
+                                <div style="text-align: center;">
+                                    <img class="" src="assets/imgs/icons/tu-logo-02.png" width="200" alt="">
+                                </div>
+
                                 <h1 class="WhiteTxt mb-20 text-uppercase">ELECTRICITY BILL CALCULATOR BY TU(ADP)</h1>
                                 <div class="Content mb-20">
                                     <h4>CONSUMER CATEGORY:</h4>
@@ -87,6 +92,77 @@
                                     </div>
                                 </div>
 
+                                <div class="Box" id="consumption-container" style="display: block;">
+                                    <div class="row align-items-center">
+                                        <div class="col-md-7 mb-10 mt-md-20">
+                                            <span class="TitleTxt">Total Consumption (kWh)</span>
+                                        </div>
+                                        <div class="col-md-5">
+                                            <div class="form-group mb-0">
+                                                <input id="consumption" name="kwh" type="text" value="Please fill"
+                                                    onfocus="if (this.value == 'Please fill') (this.value='');"
+                                                    onblur="if (this.value == '') (this.value='Please fill');"
+                                                    class="form-control form-control-lg mb-3" placeholder="Please fill">
+                                                <p id="cons_error" style="color: #ff0000; display: none;">Please fill
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="Box" id="max-demand-container" style="display: none;">
+                                    <div class="row align-items-center">
+                                        <div class="col-md-7 mb-10 mt-md-20">
+                                            <span class="TitleTxt">Maximum Demand (KW)</span>
+                                        </div>
+                                        <div class="col-md-5">
+                                            <div class="form-group mb-0">
+                                                <input id="max-demand" name="kwh" type="text" value="Please fill"
+                                                    onfocus="if (this.value == 'Please fill') (this.value='');"
+                                                    onblur="if (this.value == '') (this.value='Please fill');"
+                                                    class="form-control form-control-lg mb-3" placeholder="Please fill">
+                                                <p id="md_error" style="color: #ff0000; display: none;">Please fill</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="Box" id="peak-consumption-container" style="display: none;">
+                                    <div class="row align-items-center">
+                                        <div class="col-md-7 mb-10 mt-md-20">
+                                            <span class="TitleTxt">Consumption During Peak Period(kWh)</span>
+                                        </div>
+                                        <div class="col-md-5">
+                                            <div class="form-group mb-0">
+                                                <input id="peak-consumption" name="kwh" type="text" value="Please fill"
+                                                    onfocus="if (this.value == 'Please fill') (this.value='');"
+                                                    onblur="if (this.value == '') (this.value='Please fill');"
+                                                    class="form-control form-control-lg mb-3" placeholder="Please fill">
+                                                <p id="pc_error" style="color: #ff0000; display: none;">Please fill</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="Box" id="offpeak-consumption-container" style="display: none;">
+                                    <div class="row align-items-center">
+                                        <div class="col-md-7 mb-10 mt-md-20">
+                                            <span class="TitleTxt">Consumption During Off Peak Period (kWh)</span>
+                                        </div>
+                                        <div class="col-md-5">
+                                            <div class="form-group mb-0">
+                                                <input id="offpeak-consumption" name="kwh" type="text"
+                                                    value="Please fill"
+                                                    onfocus="if (this.value == 'Please fill') (this.value='');"
+                                                    onblur="if (this.value == '') (this.value='Please fill');"
+                                                    class="form-control form-control-lg mb-3" placeholder="Please fill">
+                                                <p id="opc_error" style="color: #ff0000; display: none;">Please fill</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
                             </div>
                             <div class="ActionBox">
                                 <div class="row">
@@ -102,24 +178,46 @@
             </div>
         </section>
 
-        <div class="modal fade tnb_modal modal-fullscreen" id="Coalpricetrend_modal" tabindex="-1" role="dialog"
-            aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">×</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <img src="assets/imgs/price-factor/Historical_Coal_Price_RP1_RP2.jpg"
-                            class="img-responsive mx-auto d-block" style="margin: 0 auto;">
-                    </div>
-                </div>
-            </div>
-        </div>
+        <script src="assets/js/source/jquery.js"></script>
 
-    </div>
+        <script type="text/javascript">
+            var success = 0;
+            var hasResult = false;
+            $('#show_result_ip').hide();
+            $(document).ready(function () {
+                initCalculator();
+            });
+
+            function initCalculator() {
+                $('#non-domestic-icpt-container, #consumption-container, #max-demand-container, #peak-consumption-container, #offpeak-consumption-container').hide();
+                //
+                var $tariff = $('#select-tariff').empty();
+                $tariff.append('<option data-ui="0" value="default">Please Select</option>');
+                $tariff.append('<option data-belong="industrial" data-ui="1000" value="D">Tariff D – Low Voltage Industrial Tariff: 033</option>');
+                $tariff.append('<option data-belong="industrial" data-ui="1100" value="E1">Tariff E1 – Medium Voltage General Industrial Tariff: 035 </option>');
+                $tariff.append('<option data-belong="industrial" data-ui="0111" value="E2">Tariff E2 – Medium Voltage Peak/Off-Peak Industrial Tariff: 037</option>');
+                $tariff.append('<option data-belong="industrial" data-ui="0111" value="E3">Tariff E3 – High Voltage Peak/Off-Peak Industrial Tariff: 038</option>');
+                $('#select-tariff').change(function () {
+                    var val = $(this).val();
+
+                    if (val == '') return;
+
+                    $('#non-domestic-icpt-container, #consumption-container, #max-demand-container, #peak-consumption-container, #offpeak-consumption-container').hide();
+
+                    var ui = $('#select-tariff > option:selected').data('ui');
+                    if (ui == '1100') {
+                        $('#non-domestic-icpt-container, #consumption-container, #max-demand-container').show();
+                    } else if (ui == '0111') {
+                        $('#non-domestic-icpt-container, #max-demand-container, #peak-consumption-container, #offpeak-consumption-container').show();
+                    } else if (ui == '1000') {
+                        $('#non-domestic-icpt-container, #consumption-container').show();
+                    } else if (ui == '0') {
+                        $('#non-domestic-icpt-container, #consumption-container, #max-demand-container, #peak-consumption-container, #offpeak-consumption-container').hide();
+                    }
+                });
+            }
+
+        </script>
 
 </body>
 
